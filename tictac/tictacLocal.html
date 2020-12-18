@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        #main {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        #tab {
+            border-collapse: collapse;
+            width: 500px;
+            height: 500px;
+            margin: auto;
+            padding: 20px;
+
+        }
+
+        .X {
+            color: brown;
+        }
+
+        .O {
+            color: blue;
+        }
+
+
+
+        #tab td {
+            border: 1px solid black;
+            width: 33%;
+            text-align: center;
+
+            font-size: 80px;
+        }
+
+        #tab tr {
+            height: 33%;
+        }
+
+        #tab tr:first-child td {
+            border-top: 0;
+        }
+
+        #tab tr td:first-child {
+            border-left: 0;
+        }
+
+        #tab tr td:last-child {
+            border-right: 0;
+        }
+
+        #tab tr:last-child td {
+            border-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h1>TIC TAC TOE</h1>
+        <h2 style="height: 15px;" id="winner"></h2>
+        <table id="tab">
+            <tr>
+                <td id="0"></td>
+                <td id="1"></td>
+                <td id="2"></td>
+            </tr>
+            <tr>
+                <td id="3"></td>
+                <td id="4"></td>
+                <td id="5"></td>
+            </tr>
+            <tr>
+                <td id="6"></td>
+                <td id="7"></td>
+                <td id="8"></td>
+            </tr>
+        </table>
+        <div style="width: 100px;text-align: center;margin: auto;margin-top: 65px;">
+            <button id="rejouer" onclick="location.reload()">Rejouer</button></div>
+        <script type="text/javascript">
+            function sleep(milliseconds) {
+                const date = Date.now();
+                let currentDate = null;
+                do {
+                    currentDate = Date.now();
+                } while (currentDate - date < milliseconds);
+            }
+            // var selected = "";
+
+            // $(document).ready(function () {
+            //     $("td").click(function () {
+            //         selected = this.id; // or alert($(this).attr('id'));
+            //         $(this).html(selected);
+            //     });
+            // });
+            var turn = "X";
+            document.getElementById("winner").innerHTML = "<span class='" + turn + "' >" + turn + "</span>";
+            var tds = document.getElementsByTagName("td");
+            var tdsCount = tds.length;
+            var filled = [];
+            var vic = 0;
+            for (var i = 0; i <= tdsCount; i += 1) {
+                tds[i].onclick = function () {
+                    if (filled[this.id] == null && !vic) {
+                        document.getElementById(this.id).innerHTML = "<span class='" + turn + "' >" + turn + "</span>";
+                        filled[this.id] = turn;
+                        //////// WINING CONDITIONS  ////////
+                        /// Horizontale ///
+                        if ((filled[0] == filled[1] && filled[0] == filled[2] && filled[0] != null) ||
+                            (filled[3] == filled[4] && filled[3] == filled[5] && filled[3] != null) ||
+                            (filled[6] == filled[7] && filled[6] == filled[8] && filled[6] != null)) {
+                            document.getElementById("winner").innerHTML = "<span class='" + turn + "' >" + turn + " Wins!</span>";
+                            vic = 1;
+                        }
+                        /// Diagonale ///
+                        if ((filled[0] == filled[4] && filled[0] == filled[8] && filled[0] != null) ||
+                            (filled[2] == filled[4] && filled[2] == filled[6] && filled[2] != null)) {
+                            document.getElementById("winner").innerHTML = "<span class='" + turn + "' >" + turn + " Wins!</span>";
+                            vic = 1;
+                        }
+                        /// Verticale ///
+                        if ((filled[0] == filled[3] && filled[0] == filled[6] && filled[0] != null) ||
+                            (filled[1] == filled[4] && filled[1] == filled[7] && filled[1] != null) ||
+                            (filled[2] == filled[5] && filled[2] == filled[8] && filled[2] != null)) {
+                            document.getElementById("winner").innerHTML = "<span class='" + turn + "' >" + turn + " Wins!</span>";
+                            vic = 1;
+                        }
+
+                        if (turn == "X")
+                            turn = "O";
+                        else
+                            turn = "X";
+                        if (!vic)
+                            document.getElementById("winner").innerHTML = "<span class='" + turn + "' >" + turn + "</span>";
+                    };
+                }
+            }
+
+
+        </script>
+
+    </div>
+</body>
+
+</html>
